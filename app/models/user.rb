@@ -16,7 +16,8 @@ class User < ApplicationRecord
   validates :password, presence: true, on: :create
   validates :password, confirmation: true
 
-  before_validation :downcased_params
+  before_validation { username&.downcase! }
+  before_validation { email&.downcase! }
   before_save :encrypt_password
 
   def self.hash_to_string(password_hash)
@@ -40,10 +41,6 @@ class User < ApplicationRecord
   end
 
   private
-
-  def downcased_params
-    [username, email].each { |p| p.downcase! if p.present? }
-  end
 
   def encrypt_password
     if password.present?

@@ -16,7 +16,7 @@ class User < ApplicationRecord
   validates :password, presence: true, on: :create
   validates :password, confirmation: true
 
-  before_save { username.downcase! }
+  before_validation { username.downcase! }
   before_save :encrypt_password
 
   def self.hash_to_string(password_hash)

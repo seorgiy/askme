@@ -42,7 +42,7 @@ class User < ApplicationRecord
   private
 
   def downcased_params
-    [username, email].each { |p| p.present? ? p.downcase! : nil }
+    [username, email].each { |p| p.downcase! if p.present? }
   end
 
   def encrypt_password
